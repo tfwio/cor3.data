@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectGuid>{BBAA461E-C30E-460B-BA30-0F6A8FDF7B78}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <RootNamespace>System.Cor3.Data</RootNamespace>
+    <AssemblyName>System.Cor3.Data</AssemblyName>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <NoStdLib>False</NoStdLib>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\Cor3.Core\cor3.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>False</DelaySign>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>1591,1587,1570</NoWarn>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <AssemblyOriginatorKeyMode>File</AssemblyOriginatorKeyMode>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <OutputType>Library</OutputType>
+    <NoWin32Manifest>False</NoWin32Manifest>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>Full</DebugType>
+    <OutputPath>bin\$(Configuration)</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <Const>NET35;NET40</Const>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <Optimize>False</Optimize>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
+    <DefineConstants>$(Const)</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <BaseAddress>4194304</BaseAddress>
+    <PlatformTarget>x86</PlatformTarget>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <FileAlignment>4096</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DefineConstants>DEBUG;TRACE;$(Const)</DefineConstants>
+    <Optimize>False</Optimize>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\Project\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\Project\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite">
+      <HintPath>..\..\Project\packages\System.Data.SQLite.1.0.91.3\lib\net45\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6">
+      <HintPath>..\..\Project\packages\System.Data.SQLite.1.0.91.3\lib\net45\System.Data.SQLite.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq">
+      <HintPath>..\..\Project\packages\System.Data.SQLite.1.0.91.3\lib\net45\System.Data.SQLite.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Cor3.Core\Properties\GAsm.cs">
+      <Link>Properties\GAsm.cs</Link>
+    </Compile>
+    <Compile Include="Context\CategoryMode.cs" />
+    <Compile Include="Context\DatabaseContext.cs">
+      <DependentUpon>QueryDatabaseContext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Context\DatabaseContextCollection.cs">
+      <DependentUpon>QueryDatabaseContext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Context\QueryContextInfo.cs" />
+    <Compile Include="Context\IDatabaseContext.cs">
+      <DependentUpon>QueryDatabaseContext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Context\IQueryContext1.cs">
+      <DependentUpon>QueryContext`4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Context\IQueryContext2.cs">
+      <DependentUpon>QueryContext`4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Context\OleDbContext.cs">
+      <DependentUpon>QueryContext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Context\OrderMode.cs" />
+    <Compile Include="Context\QueryContext.cs">
+      <DependentUpon>QueryContext`4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Context\QueryCollection.cs" />
+    <Compile Include="Context\QueryContext`4.cs" />
+    <Compile Include="Context\QueryDatabaseContext.cs">
+      <DependentUpon>QueryContextInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Context\SqlContext.cs">
+      <DependentUpon>QueryContext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Context\SQLiteContext.cs">
+      <DependentUpon>QueryContext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Engine\Access10.cs" />
+    <Compile Include="Engine\DataAbstract.cs" />
+    <Compile Include="Engine\MySqlDbA.cs" />
+    <Compile Include="Engine\SqlDbA.cs" />
+    <Compile Include="Engine\SQLiteDb.cs" />
+    <Compile Include="Engine\SqlServerConnectionType.cs" />
+    <Compile Include="Engine\SqlServerDb.cs" />
+    <Compile Include="Engine\TableParams.cs" />
+    <Compile Include="Extensions\DataTemplateExtensions.cs" />
+    <Compile Include="Extensions\GeneralDataExtensions.cs" />
+    <Compile Include="Extensions\DataSetExtensions.cs" />
+    <Compile Include="Extensions\System.FieldStringExtension.cs" />
+    <Compile Include="Extensions\System.Cor3.Data.QueryStringExtension.cs" />
+    <Compile Include="Messages.Designer.cs">
+      <DependentUpon>Messages.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reflection\BindingFlag.cs" />
+    <Compile Include="Reflection\MarshalByRefType.cs">
+      <DependentUpon>ReferenceAppDomain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reflection\ReferenceAppDomain.cs" />
+    <Compile Include="ResourceUtil.cs">
+      <DependentUpon>Messages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="DataAbstract\ColumnInfo.cs" />
+    <Compile Include="Settings\SQLiteSettings.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Messages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cor3.Core\System.Cor3-Net40.csproj">
+      <Project>{CAFD2E08-18A8-474D-AA83-6ADFAFD9C198}</Project>
+      <Name>System.Cor3-Net40</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <None Include="x64\SQLite.Interop.dll" />
+    <None Include="x86\SQLite.Interop.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
+</Project>

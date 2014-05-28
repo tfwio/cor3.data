@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="2.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectGuid>{49FA2FBA-6F1D-4B8A-97FE-570F0F8F3B1E}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <OutputType>Library</OutputType>
+    <RootNamespace>System.Cor3</RootNamespace>
+    <AssemblyName>System.Cor3.Data.Reference.Standalone</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <TargetFrameworkProfile />
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <NoStdLib>False</NoStdLib>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <SourceAnalysisOverrideSettingsFile>C:\Documents and Settings\oIo\Application Data\ICSharpCode/SharpDevelop3.0\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\cor3.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>False</DelaySign>
+    <AssemblyOriginatorKeyMode>File</AssemblyOriginatorKeyMode>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <BaseAddress>4194304</BaseAddress>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <FileAlignment>4096</FileAlignment>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>1591,1587,1570</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>False</Optimize>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <DefineConstants>DEBUG;TRACE;CONSOLE;COR3</DefineConstants>
+    <OutputPath>.\Bin\Debug</OutputPath>
+    <DebugType>Full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>True</Optimize>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <DefineConstants>TRACE</DefineConstants>
+    <OutputPath>.\Bin\Release</OutputPath>
+    <DebugType>None</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug_MySql' ">
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>False</Optimize>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <DefineConstants>DEBUG;TRACE;CONSOLE;USEMYSQL</DefineConstants>
+    <DebugType>Full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release_MySql' ">
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>True</Optimize>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <DefineConstants>TRACE;USEMYSQL</DefineConstants>
+    <DebugType>None</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug_MySql_Ref' ">
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>False</Optimize>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <DefineConstants>DEBUG;TRACE;CONSOLE;USEMYSQL</DefineConstants>
+    <DebugType>Full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release_MySql_Ref' ">
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>True</Optimize>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <DefineConstants>TRACE;USEMYSQL</DefineConstants>
+    <DebugType>None</DebugType>
+  </PropertyGroup>
+  <ItemGroup Condition=" '$(Configuration)' == 'Debug_MySql_Ref' ">
+    <Reference Include="MySql.Data" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)' == 'Release_MySql_Ref' ">
+    <Reference Include="MySql.Data" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)' == 'Release_MySql' ">
+    <Reference Include="MySql.Data" />
+    <ProjectReference Include="..\Cor3.Core\Cor3.csproj">
+      <Project>{CAFD2E08-18A8-474D-AA83-6ADFAFD9C198}</Project>
+      <Name>Cor3</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
+    <ProjectReference Include="..\Cor3.Core\Cor3.csproj">
+      <Project>{CAFD2E08-18A8-474D-AA83-6ADFAFD9C198}</Project>
+      <Name>Cor3</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)' == 'Debug_MySql' ">
+    <Reference Include="MySql.Data" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Cor3" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)' == 'STANDALONE' ">
+    <Compile Include="..\Cor3.Core\Data\TSpec.cs">
+      <Link>Essentials\TSpec.cs</Link>
+    </Compile>
+    <Compile Include="..\Cor3.Core\Properties\GAsm.cs">
+      <Link>Properties\GAsm.cs</Link>
+    </Compile>
+    <Compile Include="..\Cor3.Core\System\AssemblyDescription.cs">
+      <Link>Essentials\AssemblyDescription.cs</Link>
+    </Compile>
+    <Compile Include="..\Cor3.Core\System\ControlUtil.cs">
+      <Link>Essentials\ControlUtil.cs</Link>
+    </Compile>
+    <Compile Include="..\Cor3.Core\System\DICT.cs">
+      <Link>Essentials\DICT.cs</Link>
+    </Compile>
+    <Compile Include="..\Cor3.Core\System\Global.cs">
+      <Link>Essentials\Global.cs</Link>
+    </Compile>
+    <Compile Include="..\Cor3.Core\System\MirrorMirror.cs">
+      <Link>Essentials\MirrorMirror.cs</Link>
+    </Compile>
+    <Compile Include="..\Cor3.Core\System\Serial.cs">
+      <Link>Essentials\Serial.cs</Link>
+    </Compile>
+    <Compile Include="..\Cor3.Core\System\SerializableClass.cs">
+      <Link>Essentials\SerializableClass.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataFields.cs" />
+    <Compile Include="DataReference.cs" />
+    <Compile Include="DataReferenceObject.cs" />
+    <Compile Include="Dom\LineMode.cs" />
+    <Compile Include="Dom\LineObject.cs" />
+    <Compile Include="Dom\ParseUtil.cs" />
+    <Compile Include="Dom\Reader.cs" />
+    <Compile Include="Engine\Access10.cs" />
+    <Compile Include="Engine\cstrings.cs" />
+    <Compile Include="Engine\MySqlDbA.cs" />
+    <Compile Include="Engine\SqlServerConnectionMode.cs" />
+    <Compile Include="Engine\TableParams.cs" />
+    <Compile Include="Engine\SqlDbA.cs" />
+    <Compile Include="IDataAbstraction.cs" />
+    <Compile Include="IDbAbstraction.cs" />
+    <Compile Include="IDbConfiguration.cs" />
+    <Compile Include="IDbSelection.cs" />
+    <Compile Include="IO\INIParser.cs" />
+    <Compile Include="IO\ITextRange.cs" />
+    <Compile Include="IO\RangeBlock.cs" />
+    <Compile Include="IO\StringRange.cs" />
+    <Compile Include="IO\TextRange.cs" />
+    <Compile Include="ITemplateSelection.cs" />
+    <Compile Include="Map\ActionFactory.cs" />
+    <Compile Include="Map\DatabaseCollection.cs" />
+    <Compile Include="Map\Elements\DatabaseElement.cs" />
+    <Compile Include="Map\Elements\FieldElement.cs" />
+    <Compile Include="Map\Elements\ReferenceAssemblyElement.cs" />
+    <Compile Include="Map\Elements\DirectorySelection.cs" />
+    <Compile Include="Map\Elements\SimpleQueryElement.cs" />
+    <Compile Include="Map\Elements\TableElement.cs" />
+    <Compile Include="Map\FieldMatch.cs" />
+    <Compile Include="Map\FlashNative.cs" />
+    <Compile Include="Map\ImageKeyNames.cs" />
+    <Compile Include="Map\InfoCollection.cs" />
+    <Compile Include="Map\ReferenceAsmContext.cs" />
+    <Compile Include="Map\ReferenceAssemblyCollection.cs" />
+    <Compile Include="Map\RegularExpressionElement.cs" />
+    <Compile Include="Map\TableUtil.cs" />
+    <Compile Include="Map\Types\AccessDataTypes.cs" />
+    <Compile Include="Map\Types\ConnectionType.cs" />
+    <Compile Include="Map\Types\DatabaseTypes.cs" />
+    <Compile Include="Markup\FieldTemplate.cs" />
+    <Compile Include="Markup\IMarkupTemplate.cs" />
+    <Compile Include="Markup\MarkupTemplate.cs" />
+    <Compile Include="Markup\QuickMatch.cs" />
+    <Compile Include="Markup\TableTemplate.cs" />
+    <Compile Include="Markup\TemplateCollection.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reflection\BindingFlag.cs" />
+    <Compile Include="Reflection\MarshalByRefType.cs">
+      <DependentUpon>ReferenceAppDomain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reflection\MemberTypes.cs" />
+    <Compile Include="Reflection\ReferenceAppDomain.cs" />
+    <Compile Include="Reflection\ReflectionInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Dom" />
+    <Folder Include="Map" />
+    <Folder Include="Engine" />
+    <Folder Include="Map\Elements" />
+    <Folder Include="Map\Types" />
+    <Folder Include="Markup" />
+    <Folder Include="IO" />
+    <Folder Include="Essentials" />
+    <Folder Include="Reflection" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Readme.text" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
+</Project>
