@@ -23,9 +23,9 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 #endregion
 /*
- * User: oIo
- * Date: 11/15/2010 – 2:49 AM
- */
+* User: oIo
+* Date: 11/15/2010 – 2:49 AM
+*/
 using System;
 using System.Collections.Generic;
 using System.Cor3.Data;
@@ -34,6 +34,126 @@ using System.Data.SQLite;
 
 namespace System.Cor3.Data.Engine
 {
+	public class SQLiteQuery : IDisposable
+	{
+		const string table = "sqlitetable";
+		string databaseFile { get;set; }
+		
+		public SQLiteDb database { get;set; }
+		public SQLiteConnection Connection { get;set; }
+		public SQLiteDataAdapter Adapter { get;set; }
+		
+		public SQLiteQuery(string sqliteDatabaseFilePath)
+		{
+			databaseFile = sqliteDatabaseFilePath;
+			database = new SQLiteDb(sqliteDatabaseFilePath);
+		}
+		
+		public bool HasError = false;
+		public Exception Error = null;
+		
+		public void ExecuteInsert(string query, Action<SQLiteCommand> setParams)
+		{
+			using (Connection = database.Connection)
+			using (Adapter = database.Adapter)
+			using (Adapter.InsertCommand = new SQLiteCommand(query))
+			{
+				Connection.Open();
+				try {
+					if (setParams != null) setParams(Adapter.InsertCommand);
+					Adapter.InsertCommand.ExecuteNonQuery();
+				}
+				catch (Exception e)
+				{
+					HasError = true;
+					Error = e;
+				}
+				finally {
+					Connection.Close();
+				}
+			}
+		}
+		public void ExecuteUpdate(string query, Action<SQLiteCommand> setParams)
+		{
+			using (Connection = database.Connection)
+			using (Adapter = database.Adapter)
+			using (Adapter.UpdateCommand = new SQLiteCommand(query))
+			{
+				Connection.Open();
+				try {
+					if (setParams != null) setParams(Adapter.UpdateCommand);
+					Adapter.UpdateCommand.ExecuteNonQuery();
+				}
+				catch (Exception e)
+				{
+					HasError = true;
+					Error = e;
+				}
+				finally {
+					Connection.Close();
+				}
+			}
+		}
+		public void ExecuteDelete(string query, Action<SQLiteCommand> setParams)
+		{
+			using (Connection = database.Connection)
+			using (Adapter = database.Adapter)
+			using (Adapter.DeleteCommand = new SQLiteCommand(query))
+			{
+				Connection.Open();
+				try {
+					if (setParams != null) setParams(Adapter.DeleteCommand);
+					Adapter.DeleteCommand.ExecuteNonQuery();
+				}
+				catch (Exception e)
+				{
+					HasError = true;
+					Error = e;
+				}
+				finally {
+					Connection.Close();
+				}
+			}
+		}
+	
+		public DataSet ExecuteSelect(string query)
+		{
+			DataSet ds = new DataSet();
+			ds.Tables.Add(table);
+			
+			using (Connection = database.Connection)
+			using (Adapter = database.Adapter)
+			using (Adapter.SelectCommand = new SQLiteCommand(query))
+			{
+				Connection.Open();
+				try {
+					Adapter.SelectCommand.ExecuteNonQuery();
+					Adapter.Fill(ds,table);
+				}
+				catch (Exception e)
+				{
+					HasError = true;
+					Error = e;
+				}
+				finally {
+					Connection.Close();
+				}
+			}
+			return ds;
+		}
+		
+		/// <summary>
+		/// when disposed, we clear everything
+		/// </summary>
+		public void Dispose()
+		{
+			this.HasError = false;
+			this.Error  = null;
+			this.databaseFile = null;
+			database.Dispose();
+			database = null;
+		}
+	}
 	/// <summary>
 	/// see: http://www.connectionstrings.com/sqlite
 	/// </summary>
@@ -172,48 +292,48 @@ WHERE";
 		
 		DictionaryList<string,string> parameters = new DictionaryList<string,string>();
 		public override DictionaryList<string,string> QueryParams { get { return parameters; } }
-
+		
 		#region Constantly
 		// New=False;Compress=True
 		const string cstring_attach = @"Data Source=$(AttachDbFileName);Version=3;";
 		// Data Source=OOO\SQL2005EXPRESS
 		// AttachDbFileName="d:\dev\lip_data.mdf"
-//		const string cstring_attach = @"
-//	Data Source=$(DataSource);
-//	AttachDbFilename=""$(AttachDbFileName)"";
-//	Integrated Security=True;
-//	Connect Timeout=30";
-//	User=$(UserName);
-//		const string cstring = @"
-//	Integrated Security=SSPI;
-//	Persist Security Info=False;
-//	Database=$(InitialCatalog);
-//	Server=$(DataSource)
+		//		const string cstring_attach = @"
+		//	Data Source=$(DataSource);
+		//	AttachDbFilename=""$(AttachDbFileName)"";
+		//	Integrated Security=True;
+		//	Connect Timeout=30";
+		//	User=$(UserName);
+		//		const string cstring = @"
+		//	Integrated Security=SSPI;
+		//	Persist Security Info=False;
+		//	Database=$(InitialCatalog);
+		//	Server=$(DataSource)
 		//";
 		#endregion
-
+		
 		protected string dsource=string.Empty, dconnect=cstring_attach, dcatalog, username;
 		int lastRecordsEffected = -1;
 		/// <inheritdoc/>
 		public override int LastRecordsAffected { get { return lastRecordsEffected; } set { lastRecordsEffected = value; } }
-
+		
 		protected string DataCatalog { get { return dcatalog; } set { dcatalog=value; } }
 		/// <inheritdoc/>
 		public override string DataSource { get { return dsource; }  }
-//		protected bool LoadFile = false;
+		//		protected bool LoadFile = false;
 		/// <inheritdoc/>
 		public override string ConnectionString {
 			get {
 				return
 					//LoadFile ?
 					cstring_attach
-//					.Replace("$(InitialCatalog)",DataCatalog)
-					.Replace("$(AttachDbFileName)",DataSource)
-					;
-//				cstring
-//					.Replace("$(UserName)",username)
-//					.Replace("$(InitialCatalog)",DataCatalog)
-//					.Replace("$(DataSource)",DataSource);
+					//					.Replace("$(InitialCatalog)",DataCatalog)
+						.Replace("$(AttachDbFileName)",DataSource)
+						;
+				//				cstring
+				//					.Replace("$(UserName)",username)
+				//					.Replace("$(InitialCatalog)",DataCatalog)
+				//					.Replace("$(DataSource)",DataSource);
 			}
 		}
 		/// <inheritdoc/>
@@ -223,15 +343,15 @@ WHERE";
 		}
 		public SQLiteDb()
 		{
-//			globalData = new DataSet(data_id);
+			//			globalData = new DataSet(data_id);
 		}
 		public SQLiteDb(string source) : this()
 		{
 			this.dsource = source;
-//			this.dcatalog = table;
+			//			this.dcatalog = table;
 		}
 		
-
+		
 		/// <inheritdoc/>
 		public override SQLiteConnection Connection { get { return new SQLiteConnection(ConnectionString); } }
 		/// <inheritdoc/>
